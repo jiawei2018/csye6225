@@ -1,4 +1,4 @@
-package com.csye6225.fall2018.project.jw.cloudProject.resources;
+package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 
 import java.util.List;
 

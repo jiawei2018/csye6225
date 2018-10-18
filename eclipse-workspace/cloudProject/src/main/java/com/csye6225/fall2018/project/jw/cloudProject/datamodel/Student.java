@@ -1,33 +1,43 @@
 package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 
+import java.util.Date;
 import java.util.List;
-
-import com.csye6225.fall2018.project.jw.cloudProject.resources.Course;
-import com.csye6225.fall2018.project.jw.cloudProject.resources.Image;
-import com.csye6225.fall2018.project.jw.cloudProject.resources.Program;
+ 
 
 public class Student {
-	private int StudentID;
-	private String Name;
+//  - Every Student has information in the system 
+// - Name        
+// - StudentId
+// - image     
+// - courses enrolled
+// - student name
+	private int studentID;
+	private String name;
 	private List<Image> images;
-	private List<Program> programs;
+	//private List<Program> programs;
 	private List<Course> enrolledCourse;
+	private Date joinDate;
+	private Program program;
+
+	public Student(int studentId, String name, Date joiningDate) {
+		// TODO Auto-generated constructor stub
+		this.studentID = studentId;
+		this.name = name;
+		setJoinDate(joiningDate);
+		
+	}
 
 	public int getStudentID() {
-		return StudentID;
+		return studentID;
 	}
 
-	public void setStudentID(int studentID) {
-		StudentID = studentID;
-	}
+ 
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
-	public void setName(String name) {
-		Name = name;
-	}
+ 
 
 	public List<Image> getImages() {
 		return images;
@@ -45,13 +55,14 @@ public class Student {
 	}
 
 
-	public List<Program> getProgram() {
-		return programs;
+	public Program getProgram() {
+		return program;
 	}
-
-	public void addProgram(Program program) {
-		programs.add(program);
+	
+	public void setProgram(Program program) {
+		this.program = program;
 	}
+ 
 
 	public List<Course> getEnrolledCourse() {
 		return enrolledCourse;
@@ -66,8 +77,37 @@ public class Student {
 		this.enrolledCourse = enrolledCourse;
 	}
 
-	public void setPrograms(List<Program> programs) {
-		this.programs = programs;
+ 
+
+ 
+
+	public Object getDepartment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setStudentId(int studId) {
+		// TODO Auto-generated method stub
+		studentID = studId;
+		
+	}
+
+	public int getStudentId() {
+		// TODO Auto-generated method stub
+		return studentID;
+	}
+
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
+	
+	@Override
+	public String toString() {
+		return "Name: " + name + "  StudentId: " + studentID;
 	}
 
 }

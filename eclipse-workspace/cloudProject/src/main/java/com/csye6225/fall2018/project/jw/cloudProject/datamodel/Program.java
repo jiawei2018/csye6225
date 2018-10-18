@@ -1,19 +1,25 @@
 package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 
+//import java.util.Date;
 import java.util.List;
-
-import com.csye6225.fall2018.project.jw.cloudProject.resources.Course;
-import com.csye6225.fall2018.project.jw.cloudProject.resources.Roster;
-
+ 
 public class Program {
 	private String name;
 	private List<Course> requiredCourses;
 	private Roster roster;
+	private String department;
+	private int programId;
+	
+	public Program(int porgramId, String name, String department) {
+		// TODO Auto-generated constructor stub
+	}
 
+ 
 	public String getName() {
 		return name;
 	}
 
+ 
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -32,6 +38,25 @@ public class Program {
 
 	public void setRoster(Roster roster) {
 		this.roster = roster;
+	}
+
+	public void setProgramId(int programId) {
+		 this.programId = programId;
+	}
+
+	public int getProgramId() {
+		// TODO Auto-generated method stub
+		return programId;
+	}
+
+	public String getDepartment() {
+		// TODO Auto-generated method stub
+		return department;
+	}
+	@Override
+	public String toString() {
+		return name;
+		
 	}
 
 }
