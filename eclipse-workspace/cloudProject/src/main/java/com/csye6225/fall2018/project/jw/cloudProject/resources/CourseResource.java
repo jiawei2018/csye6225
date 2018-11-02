@@ -63,10 +63,8 @@ public class CourseResource {
 		return courseService.updateCourseInformation(courseId, course);
 	}
 	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void addCourse(String name, String department, Date joiningDate) {
+ 
+	public void addCourse(String name, String department, String joiningDate) {
 		courseService.addCourse(name, department);
 	}
 

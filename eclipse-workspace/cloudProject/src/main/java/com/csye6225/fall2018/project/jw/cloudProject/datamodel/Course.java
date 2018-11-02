@@ -22,6 +22,10 @@ public class Course {
 	private int courseId;
 	private String department;
 	
+	public Course() {
+		
+	}
+	
 	public Course(int courseId, String name, String department) {
 		// TODO Auto-generated constructor stub
 		this.name = name;

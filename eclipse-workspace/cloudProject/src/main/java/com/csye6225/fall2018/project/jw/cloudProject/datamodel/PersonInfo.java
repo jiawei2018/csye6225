@@ -4,6 +4,10 @@ public class PersonInfo {
 	private String name;
 	private int age;
 	private int ID;
+	
+	public PersonInfo() {
+		
+	}
 	public int getID() {
 		return ID;
 	}

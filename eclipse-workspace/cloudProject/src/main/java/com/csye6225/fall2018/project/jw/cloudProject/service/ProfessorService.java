@@ -1,9 +1,8 @@
 package com.csye6225.fall2018.project.jw.cloudProject.service;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
  
 
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
@@ -25,17 +24,18 @@ public class ProfessorService {
 	}
 
 	// Adding a professor
-	public void addProfessor(String name, String department, Date joiningDate) {
+	public void addProfessor(String name, String department, String joiningDate) {
 		// Next Id 
 		int nextAvailableId = prof_Map.size() + 1;
 		
 		//Create a Professor Object
-		Professor prof = new Professor(nextAvailableId, name , 
-				department, joiningDate);
+		Professor prof = new Professor(nextAvailableId, name, department, joiningDate);
+		System.out.println(" here ? 1");
 		prof_Map.put(nextAvailableId, prof);
 	}
 	
 	public Professor addProfessor(Professor prof) {	
+		System.out.println(" here ? 2");
 		int nextAvailableId = prof_Map.size() + 1;
 		prof.setProfessorId(nextAvailableId);
 		prof_Map.put(nextAvailableId, prof);
@@ -44,6 +44,7 @@ public class ProfessorService {
 	
 	// Getting One Professor
 	public Professor getProfessor(int profId) {
+		System.out.println(prof_Map.get(profId));
 		return prof_Map.get(profId);
 	}
 	

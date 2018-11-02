@@ -17,12 +17,12 @@ public class StudentService {
 //    - image     
 //    - courses enrolled
 //    - student name
-	public Student getStudent(int studentID) {
+static HashMap<Integer, Student> stud_Map = TempDatebase.getStudentDB();	
+
+public Student getStudent(int studentID) {
 		
-		return null;
+		return stud_Map.get(studentID);
 	}
-	
-static HashMap<Integer, Student> stud_Map = TempDatebase.getStudentDB();
 	
 	public List<Student> getAllStudents() {	
 		//Getting the list
@@ -45,7 +45,7 @@ static HashMap<Integer, Student> stud_Map = TempDatebase.getStudentDB();
 	}
 	
 	public List<Course> getStudentCourses(int studentID){
-		return null;
+		return stud_Map.get(studentID).getEnrolledCourse();
 		
 	}
 	public Student addStudent(Student stud) {	

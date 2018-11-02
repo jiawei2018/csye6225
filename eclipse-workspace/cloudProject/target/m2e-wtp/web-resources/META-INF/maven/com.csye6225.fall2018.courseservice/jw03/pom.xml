@@ -3,14 +3,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.csye6225.fall2018.project.jw</groupId>
-    <artifactId>cloudProject</artifactId>
+    <groupId>com.csye6225.fall2018.courseservice</groupId>
+    <artifactId>jw03</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cloudProject</name>
+    <name>jw03</name>
 
     <build>
-        <finalName>cloudProject</finalName>
+        <finalName>jw03</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -44,12 +44,23 @@
             <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
             <!-- artifactId>jersey-container-servlet</artifactId -->
         </dependency>
-        <!-- uncomment this to get JSON support
+        
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
-        -->
+        
+        
+		<dependency>
+          <groupId>com.amazonaws</groupId>
+          <artifactId>aws-java-sdk-dynamodb</artifactId>
+          <version>1.11.297</version>
+       </dependency>
+        
+        
+        
+ 
+  
     </dependencies>
     <properties>
         <jersey.version>2.16</jersey.version>

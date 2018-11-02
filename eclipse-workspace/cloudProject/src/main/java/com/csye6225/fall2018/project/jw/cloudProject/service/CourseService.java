@@ -13,7 +13,6 @@ public class CourseService {
 static HashMap<Integer, Course> c_Map = TempDatebase.getCourseDB();
 	
 	public List<Course> getAllcourses() {	
-		//Getting the list
 		ArrayList<Course> list = new ArrayList<>();
 		for (Course course : c_Map.values()) {
 			list.add(course);
@@ -23,10 +22,7 @@ static HashMap<Integer, Course> c_Map = TempDatebase.getCourseDB();
 
 	// Adding a Course
 	public void addCourse(String name, String department) {
-		// Next Id 
 		int nextAvailableId = c_Map.size() + 1;
-		
-		//Create a Course Object
 		Course course = new Course(nextAvailableId, name, department);
 		c_Map.put(nextAvailableId, course);
 	}
@@ -63,7 +59,6 @@ static HashMap<Integer, Course> c_Map = TempDatebase.getCourseDB();
 	
 	// Get Courses in a department 
 	public List<Course> getCoursesByDepartment(String department) {	
-		//Getting the list
 		ArrayList<Course> list = new ArrayList<>();
 		for (Course course : c_Map.values()) {
 			if (course.getDepartment().equals(department)) {

@@ -3,6 +3,10 @@ package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 public class Board {
 	private String boardInfo;
 	private String boardName;
+	
+	public Board() {
+		
+	}
 	public String getBoardInfo() {
 		return boardInfo;
 	}

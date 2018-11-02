@@ -1,6 +1,5 @@
 package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 
-//import java.util.Date;
 import java.util.List;
  
 public class Program {
@@ -10,8 +9,14 @@ public class Program {
 	private String department;
 	private int programId;
 	
+	public Program() {
+		
+	}
+	
 	public Program(int porgramId, String name, String department) {
-		// TODO Auto-generated constructor stub
+		this.programId = porgramId;
+		this.name = name;
+		this.department = department;
 	}
 
  
@@ -45,14 +50,13 @@ public class Program {
 	}
 
 	public int getProgramId() {
-		// TODO Auto-generated method stub
 		return programId;
 	}
 
 	public String getDepartment() {
-		// TODO Auto-generated method stub
 		return department;
 	}
+	
 	@Override
 	public String toString() {
 		return name;

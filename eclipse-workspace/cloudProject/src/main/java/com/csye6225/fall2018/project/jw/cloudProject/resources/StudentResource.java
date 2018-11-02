@@ -65,17 +65,13 @@ StudentService studService = new StudentService();
 	}
 	
 	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+ 
 	public void setStudentProgram(int studentId, Program program) {
 		studService.setStudentPorgram(studentId, program);
 	}
 	
 	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+ 
 	public void addStudent(String name, String department, Date joiningDate) {
 		studService.addStudent(name, joiningDate);
 	}

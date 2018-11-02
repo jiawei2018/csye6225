@@ -63,9 +63,7 @@ ProgramService progService = new ProgramService();
 		return progService.updateProgramInformation(progId, prog);
 	}
 	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+ 
 	public void addProgram(String name, String department, Date joiningDate) {
 		progService.addProgram(name, department);
 	}

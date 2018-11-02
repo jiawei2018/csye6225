@@ -7,7 +7,9 @@ public class Roster {
 	private String rosterCourse;
 	private List<Student> enrolledStudents;
 	
-	
+	public Roster() {
+		
+	}
 	public Roster(String rosterCourse) {
 		this.rosterCourse = rosterCourse;
 	}

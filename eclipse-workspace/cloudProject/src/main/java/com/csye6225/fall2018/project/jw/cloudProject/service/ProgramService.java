@@ -23,9 +23,7 @@ public class ProgramService {
 
 	// Adding a Program
 	public void addProgram(String name, String department) {
-		// Next Id 
 		int nextAvailableId = prog_Map.size() + 1;
-		
 		//Create a Program Object
 		Program prog = new Program(nextAvailableId, name, department);
 		prog_Map.put(nextAvailableId, prog);
@@ -57,13 +55,11 @@ public class ProgramService {
 		prog.setProgramId(progId);
 		// Publishing New Values
 		prog_Map.put(progId, prog) ;
-		
 		return prog;
 	}
 	
 	// Get Programs in a department 
 	public List<Program> getProgramsByDepartment(String department) {	
-		//Getting the list
 		ArrayList<Program> list = new ArrayList<>();
 		for (Program prog : prog_Map.values()) {
 			if (prog.getDepartment().equals(department)) {

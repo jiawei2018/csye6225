@@ -12,15 +12,20 @@ public class Student {
 // - courses enrolled
 // - student name
 	private int studentID;
+	private String department;
 	private String name;
 	private List<Image> images;
 	//private List<Program> programs;
 	private List<Course> enrolledCourse;
 	private Date joinDate;
 	private Program program;
+	private boolean isTA = false;
+	
+	public Student() {
+		
+	}
 
 	public Student(int studentId, String name, Date joiningDate) {
-		// TODO Auto-generated constructor stub
 		this.studentID = studentId;
 		this.name = name;
 		setJoinDate(joiningDate);
@@ -31,13 +36,9 @@ public class Student {
 		return studentID;
 	}
 
- 
-
 	public String getName() {
 		return name;
 	}
-
- 
 
 	public List<Image> getImages() {
 		return images;
@@ -69,7 +70,6 @@ public class Student {
 	}
 
 	public boolean addEnrolledCourse( Course c) {
-		//this.enrolledCourse = enrolledCourse;
 		return enrolledCourse.add(c);
 	}
 	
@@ -77,23 +77,15 @@ public class Student {
 		this.enrolledCourse = enrolledCourse;
 	}
 
- 
-
- 
-
-	public Object getDepartment() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDepartment() {
+		return department;
 	}
 
 	public void setStudentId(int studId) {
-		// TODO Auto-generated method stub
 		studentID = studId;
-		
 	}
 
 	public int getStudentId() {
-		// TODO Auto-generated method stub
 		return studentID;
 	}
 
@@ -108,6 +100,14 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Name: " + name + "  StudentId: " + studentID;
+	}
+
+	public boolean isTA() {
+		return isTA;
+	}
+
+	public void setTA(boolean isTA) {
+		this.isTA = isTA;
 	}
 
 }
