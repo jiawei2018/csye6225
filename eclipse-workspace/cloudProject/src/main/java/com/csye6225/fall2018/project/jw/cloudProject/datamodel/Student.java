@@ -1,6 +1,6 @@
 package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
  
 
@@ -15,7 +15,7 @@ public class Student {
 	private String department;
 	private String name;
 	private List<Image> images;
-	//private List<Program> programs;
+
 	private List<Course> enrolledCourse;
 	private String joinDate;
 	private Program program;
@@ -105,9 +105,13 @@ public class Student {
 	public boolean isTA() {
 		return isTA;
 	}
-
-	public void setTA(boolean isTA) {
-		this.isTA = isTA;
+	
+	public void unSetTA() {
+		this.isTA = false;
+	}
+	
+	public void setTA() {
+		this.isTA = true;
 	}
 
 }

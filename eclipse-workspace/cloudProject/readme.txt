@@ -1,8 +1,5 @@
 https://github.com/jiawei2018/csye6225
-
 http://cloud01-env.qdbpkhpknb.us-east-2.elasticbeanstalk.com/webapi/ 
-
-
 
 <Course>
 
@@ -11,8 +8,7 @@ http://cloud01-env.qdbpkhpknb.us-east-2.elasticbeanstalk.com/webapi/
 webapi/course/
    
 webapi/course/{courseid}
-     ...
-
+   
 
 2. POST
      
@@ -26,8 +22,6 @@ webapi/course/
 	
 "department": "abc",
 	
-"joiningDate": "08-08-2018"
-
 }
 
 
@@ -40,7 +34,7 @@ body:
       
 {
            
-¡°coursename¡±: ¡±cloud¡±
+"name": "cloud"
       
  }
 
@@ -88,8 +82,7 @@ body:
       
 {
            
-¡°name¡±: ¡±hari¡±
-      
+"name": "haria"      
  }
 
 
@@ -124,7 +117,6 @@ webapi/programs/
 	
 "department": "abc",
 	
-
 }
 
 
@@ -137,7 +129,7 @@ body:
       
 {
            
-¡°name¡±: ¡±cloud¡±
+"name": "cloud1"
       
  }
 
@@ -167,11 +159,9 @@ webapi/students/
      
 {
         
-"name": "abcd",
+"name": "abcdw",
 	
-"department": "abc",
-	
-
+"department": "abcw"	
 }
 
 
@@ -184,8 +174,7 @@ body:
       
 {
            
-¡°name¡±: ¡±cloud¡±
-      
+"name": "cloud2"     
  }
 
 
