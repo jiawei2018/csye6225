@@ -17,7 +17,7 @@ public class Student {
 	private List<Image> images;
 	//private List<Program> programs;
 	private List<Course> enrolledCourse;
-	private Date joinDate;
+	private String joinDate;
 	private Program program;
 	private boolean isTA = false;
 	
@@ -25,7 +25,7 @@ public class Student {
 		
 	}
 
-	public Student(int studentId, String name, Date joiningDate) {
+	public Student(int studentId, String name, String joiningDate) {
 		this.studentID = studentId;
 		this.name = name;
 		setJoinDate(joiningDate);
@@ -89,11 +89,11 @@ public class Student {
 		return studentID;
 	}
 
-	public Date getJoinDate() {
+	public String getJoinDate() {
 		return joinDate;
 	}
 
-	public void setJoinDate(Date joinDate) {
+	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
 	
