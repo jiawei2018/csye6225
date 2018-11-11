@@ -15,19 +15,33 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Course;
+import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Lecture;
 import com.csye6225.fall2018.project.jw.cloudProject.service.CourseService;
 
-@Path("course")
+@Path("courses")
 public class CourseResource {
 	CourseService courseService = new CourseService();
-	
-	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	public List<Course> showAll(){
+	    return courseService.getAllCourses();
+	}
+	
+	@GET
+	@Path("/allcourses")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Course> getAllcourses(){
+	    return courseService.getAllCourses();
+	}
+	 
+		
+	@GET
+	@Path("/department")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Course> getCourseByDeparment(
-			@QueryParam("department") String department			) {
+			@QueryParam("department") String department) {
 		if (department == null) {
-			return courseService.getAllcourses();
+			return courseService.getAllCourses();
 		}
 		return courseService.getCoursesByDepartment(department);
 	}
@@ -36,14 +50,14 @@ public class CourseResource {
 	@GET
 	@Path("/{CourseId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Course getCourse(@PathParam("CourseId") int courseId) {
+	public Course getCourse(@PathParam("CourseId") String courseId) {
 		return courseService.getCourse(courseId);
 	}
 	
 	@DELETE
 	@Path("/{CourseId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Course deleteCourse(@PathParam("CourseId") int courseId) {
+	public Course deleteCourse(@PathParam("CourseId") String courseId) {
 		return courseService.deleteCourse(courseId);
 	}
 	
@@ -58,14 +72,14 @@ public class CourseResource {
 	@Path("/{CourseId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Course updateCourse(@PathParam("CourseId") int courseId, 
+	public Course updateCourse(@PathParam("CourseId") String courseId, 
 			Course course) {
 		return courseService.updateCourseInformation(courseId, course);
 	}
 	
  
 	public void addCourse(String name, String department, String joiningDate) {
-		courseService.addCourse(name, department);
+		//courseService.addCourse(name, department);
 	}
 
 

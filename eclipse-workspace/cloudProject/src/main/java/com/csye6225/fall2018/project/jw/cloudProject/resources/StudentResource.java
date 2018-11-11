@@ -1,6 +1,6 @@
 package com.csye6225.fall2018.project.jw.cloudProject.resources;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Program;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Student;
 import com.csye6225.fall2018.project.jw.cloudProject.service.StudentService;
@@ -23,57 +24,53 @@ public class StudentResource {
 StudentService studService = new StudentService();
 	
 	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Student> getStudentByDeparment(
-			@QueryParam("department") String department	) {
-		if (department == null) {
-			return studService.getAllStudents();
-		}
-		return studService.getStudentsByDepartment(department);
+ 	@GET
+ 	@Path("/allstudents")
+ 	@Produces(MediaType.APPLICATION_JSON)
+	public List<Student> getAllStudents(){
+ 			return studService.getAllStudents();
+
 	}
-	
+ 
  
 	@GET
 	@Path("/{StudentId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student getStudent(@PathParam("StudentId") int profId) {
-		return studService.getStudent(profId);
+	public Student getStudent(@PathParam("StudentId") String studId) {
+		return studService.getStudent(studId);
 	}
 	
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Student> getStudentByCourse(@QueryParam("courseId") String courseId) {
+        if (courseId == null) {
+            return studService.getAllStudents();
+        }
+        return studService.getStudentsByCourse(courseId);
+    }
+	   
 	@DELETE
 	@Path("/{StudentId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student deleteStudent(@PathParam("StudentId") int profId) {
-		return studService.deleteStudent(profId);
+	public Student deleteStudent(@PathParam("StudentId") String studId) {
+		return studService.deleteStudent(studId);
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Student addStudent(Student prof) {
-			return studService.addStudent(prof);
+	public Student addStudent(Student student) {
+			return studService.addStudent(student);
 	}
 	
 	@PUT
 	@Path("/{StudentId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Student updateStudent(@PathParam("StudentId") int profId, 
-			Student prof) {
-		return studService.updateStudentInformation(profId, prof);
+	public Student updateStudent(@PathParam("StudentId") String studId, 
+			Student stud) {
+		return studService.updateStudentInformation(studId, stud);
 	}
-	
-	
  
-	public void setStudentProgram(int studentId, Program program) {
-		studService.setStudentPorgram(studentId, program);
-	}
-	
-	
- 
-	public void addStudent(String name, String department, Date joiningDate) {
-		studService.addStudent(name, joiningDate);
-	}
 
 }

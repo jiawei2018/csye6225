@@ -3,70 +3,97 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.csye6225.fall2018.project.jw.cloudProject.datamodel.DynamoDbConnector;
+import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
+//import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Program;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.TempDatebase;
 
 
  
 public class ProgramService {
-	static HashMap<Integer, Program> prog_Map = TempDatebase.getProgramDB();
+	
+	static DynamoDbConnector dynamoDb;
+	DynamoDBMapper mapper; 
+
+	public ProgramService() {
+		dynamoDb = new DynamoDbConnector();
+		DynamoDbConnector.init();
+		mapper = new DynamoDBMapper(dynamoDb.getClient());
+	}
 	
 	public List<Program> getAllPrograms() {	
 		//Getting the list
-		ArrayList<Program> list = new ArrayList<>();
-		for (Program prog : prog_Map.values()) {
-			list.add(prog);
-		}
-		return list ;
+		List<Program> list = new ArrayList<>();
+		list.addAll(mapper.scan(Program.class, new DynamoDBScanExpression()));
+        return list;
 	}
 
-	// Adding a Program
-	public void addProgram(String name, String department) {
-		int nextAvailableId = prog_Map.size() + 1;
-		//Create a Program Object
-		Program prog = new Program(nextAvailableId, name, department);
-		prog_Map.put(nextAvailableId, prog);
-	}
-	
+
 	public Program addProgram(Program prog) {	
-		int nextAvailableId = prog_Map.size() + 1;
-		prog.setProgramId(nextAvailableId);
-		prog_Map.put(nextAvailableId, prog);
-		return prog_Map.get(nextAvailableId);
+    	Program prog2 = new Program();
+    	//System.out.println(prog2.getId() + "   <<<<<<<<");
+		prog2.setDepartment(prog.getDepartment());
+		prog2.setName(prog.getName());;
+		prog2.setRequiredCourses(prog.getRequiredCourses()); 
+		prog2.setProgramId(idGenerater.generateId("prog", 3)); 
+		//System.out.println(prog2);
+		mapper.save(prog2);//already have the id  in it
+		//System.out.println("Item added:");
+	    return prog2;
 	}
 	
 	// Getting One Program
-	public Program getProgram(int progId) {
-		return prog_Map.get(progId);
+	public Program getProgram(String progId) {
+    	HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":v1",  new AttributeValue().withS(progId));
+
+		DynamoDBQueryExpression<Program> queryExpression = new DynamoDBQueryExpression<Program>()
+		    .withIndexName("programId-index")
+		    .withConsistentRead(false)
+		    .withKeyConditionExpression("programId = :v1")
+		    .withExpressionAttributeValues(eav);
+
+		List<Program> list =  mapper.query(Program.class, queryExpression);
+		return  list.isEmpty() ? null : list.get(0);
 	}
 	
 	// Deleting a Program
-	public Program deleteProgram(int progId) {
-		Program deletedprogDetails = prog_Map.get(progId);
-		prog_Map.remove(progId);
-		return deletedprogDetails;
+	public Program deleteProgram(String progId) {
+	       Program deletedProfDetails = getProgram(progId);
+	       mapper.delete(deletedProfDetails);
+	       //System.out.println("delete sucess");
+	       return deletedProfDetails;
 	}
 	
 	// Updating Program Info
-	public Program updateProgramInformation(int progId, Program prog) {	
-		Program oldprogObject = prog_Map.get(progId);
-		progId = oldprogObject.getProgramId();
-		prog.setProgramId(progId);
-		// Publishing New Values
-		prog_Map.put(progId, prog) ;
-		return prog;
+	public Program updateProgramInformation(String progId, Program prog) {	
+        Program oldProgObject = getProgram(progId);
+        mapper.delete(oldProgObject);
+        prog.setProgramId(progId);
+        mapper.save(prog);
+        return prog;
 	}
 	
 	// Get Programs in a department 
 	public List<Program> getProgramsByDepartment(String department) {	
-		ArrayList<Program> list = new ArrayList<>();
-		for (Program prog : prog_Map.values()) {
-			if (prog.getDepartment().equals(department)) {
-				list.add(prog);
-			}
-		}
-		return list ;
+    	HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":v1",  new AttributeValue().withS(department));
+
+		DynamoDBQueryExpression<Program> queryExpression = new DynamoDBQueryExpression<Program>()
+		    .withIndexName("department-index")
+		    .withConsistentRead(false)
+		    .withKeyConditionExpression("department = :v1")
+		    .withExpressionAttributeValues(eav);
+
+		List<Program> list =  mapper.query(Program.class, queryExpression);
+       return list ;
 	}
 
 }

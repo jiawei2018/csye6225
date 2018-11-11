@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Program;
 import com.csye6225.fall2018.project.jw.cloudProject.service.ProgramService;
 
@@ -21,11 +22,20 @@ import com.csye6225.fall2018.project.jw.cloudProject.service.ProgramService;
 public class ProgramResource {
 ProgramService progService = new ProgramService();
 	
+
+
+
 	
 	@GET
+	@Path("/allprograms")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Program> getProgramByDeparment(
-			@QueryParam("department") String department			) {
+	public List<Program> getAllPrograms(){
+	    return progService.getAllPrograms();
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Program> getProgramByDeparment(@QueryParam("department") String department	) {
 		if (department == null) {
 			return progService.getAllPrograms();
 		}
@@ -36,14 +46,14 @@ ProgramService progService = new ProgramService();
 	@GET
 	@Path("/{ProgramId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Program getProgram(@PathParam("ProgramId") int progId) {
+	public Program getProgram(@PathParam("ProgramId") String progId) {
 		return progService.getProgram(progId);
 	}
 	
 	@DELETE
 	@Path("/{ProgramId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Program deleteProgram(@PathParam("ProgramId") int progId) {
+	public Program deleteProgram(@PathParam("ProgramId") String progId) {
 		return progService.deleteProgram(progId);
 	}
 	
@@ -58,14 +68,14 @@ ProgramService progService = new ProgramService();
 	@Path("/{ProgramId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Program updateProgram(@PathParam("ProgramId") int progId, 
+	public Program updateProgram(@PathParam("ProgramId") String progId, 
 			Program prog) {
 		return progService.updateProgramInformation(progId, prog);
 	}
 	
  
-	public void addProgram(String name, String department, Date joiningDate) {
-		progService.addProgram(name, department);
-	}
+//	public void addProgram(String name, String department, Date joiningDate) {
+//		progService.addProgram(name, department);
+//	}
 
 }

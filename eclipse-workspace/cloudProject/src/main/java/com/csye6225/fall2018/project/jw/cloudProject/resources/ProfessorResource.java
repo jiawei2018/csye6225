@@ -20,57 +20,58 @@ import com.csye6225.fall2018.project.jw.cloudProject.service.ProfessorService;
 //.. /webapi/myresource
 @Path("professors")
 public class ProfessorResource {
-	ProfessorService profService = new ProfessorService();
-	
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Professor> getProfessorsByDeparment(@QueryParam("department") String department) {
-		if (department == null) {
-			return profService.getAllProfessors();
-		}
-		return profService.getProfessorsByDepartment(department);
-	}
-	
+
+    ProfessorService profService = new ProfessorService();
+    
+    @GET
+    @Path("/allprofessors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Professor> getAllProfessors(){
+        return profService.getAllProfessors();
+    }
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Professor> getProfessorsByDeparment(
+            @QueryParam("department") String department) {
+        if (department == null) {
+            return profService.getAllProfessors();
+        }
+        return profService.getProfessorsByDepartment(department);
+    }
+    
+    // ... webapi/professor/1
+    @GET
+    @Path("/{professorId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Professor getProfessor(@PathParam("professorId") String profId) {
+        return profService.getProfessor(profId);
+    }
+    
+    @DELETE
+    @Path("/{professorId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Professor deleteProfessor(@PathParam("professorId") String profId) {
+        return profService.deleteProfessor(profId);
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Professor addProfessor(Professor prof) {
+            return profService.addProfessor(prof);
+    }
+    
+    @PUT
+    @Path("/{professorId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Professor updateProfessor(@PathParam("professorId") String profId,
+            Professor prof) {
+        return profService.updateProfessorInformation(profId, prof);
+    }
+    
+
  
-	@GET
-	@Path("/{professorId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Professor getProfessor(@PathParam("professorId") int profId) {
-		System.out.println(profService.getProfessor(profId));
-		return profService.getProfessor(profId);
-		 
-	}
-	
-	@DELETE
-	@Path("/{professorId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Professor deleteProfessor(@PathParam("professorId") int profId) {
-		return profService.deleteProfessor(profId);
-	}
-	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Professor addProfessor(Professor prof) {
-		System.out.println("   why  here");
-		System.out.println(prof);//why para not send in?
-			return profService.addProfessor(prof);
-	}
-	
-	@PUT
-	@Path("/{professorId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Professor updateProfessor(@PathParam("professorId") int profId, 
-			Professor prof) {
-		return profService.updateProfessorInformation(profId, prof);
-	}
-	
-	
-	public void addProfessor(String name, String department, String joiningDate) {
-		
-		System.out.println("i am not here");
-		profService.addProfessor(name, department, joiningDate);
-	}
 }
