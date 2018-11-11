@@ -18,6 +18,7 @@ public class DynamoDbConnector {
 				// cloud use
 		//InstanceProfileCredentialsProvider 	credentialsProvider = new InstanceProfileCredentialsProvider(false);
 		
+			
 			//local use
 		ProfileCredentialsProvider	credentialsProvider = new ProfileCredentialsProvider();
 		

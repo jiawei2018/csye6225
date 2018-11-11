@@ -1,6 +1,3 @@
-https://github.com/jiawei2018/csye6225
-Cloud-env.zknyamy397.us-east-2.elasticbeanstalk.com
-
 <Course>
 1. GET
     webapi/courses/allcourses
