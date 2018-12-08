@@ -58,7 +58,10 @@ public class AnnouncementService {
 			    .withExpressionAttributeValues(eav);
 
 			List<Announcement> list =  mapper.query(Announcement.class, queryExpression);
-			return  list.isEmpty() ? null : list.get(0);
+			if(list == null || list.size() < 1) {
+				return null;
+			}
+			return  list.get(0);
 	    }
 	    
 	    public Announcement deleteAnnouncement(String announcementId) {

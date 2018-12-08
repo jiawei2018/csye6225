@@ -12,8 +12,11 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Course;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.DynamoDbConnector;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
-import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Course;
 import com.csye6225.fall2018.project.jw.cloudProject.datamodel.TempDatebase;
+
+import aws.lambdas;
+
+
 
  
 
@@ -55,13 +58,19 @@ public CourseService() {
 		course2.setProfessorId(course.getProfessorId());
 		course2.setTaId(course.getTaId());
 		course2.setRoster(course.getRoster());
-		System.out.println(course2);
+		
+		//get and set arn
+		course2.setSnsTopic(new lambdas().createARN(course.getName()));
+		
+		//System.out.println(course2);
 		mapper.save(course2);//already have the id  in it
 		
-		System.out.println("Item added:");
+		//System.out.println("Item added:");
 	    //System.out.println(course2.toString());
 	    return course2;
 	}
+	
+ 
 	
 	// Getting One Course
 	public Course getCourse(String courseId) {
@@ -75,21 +84,22 @@ public CourseService() {
 		    .withExpressionAttributeValues(eav);
 
 		List<Course> list =  mapper.query(Course.class, queryExpression);
-		return  list.isEmpty() ? null : list.get(0);
+		if(list == null || list.size() < 1) {
+			return null;
+		}
+		return   list.get(0);
 	}
 	
-	// Deleting a Course
 	public Course deleteCourse(String courseId) {
 	       Course deletedProfDetails = getCourse(courseId);
 	       mapper.delete(deletedProfDetails);
-	       System.out.println("delete sucess");
-	      return deletedProfDetails;
+	       return deletedProfDetails;
 	}
 	
-	// Updating Course Info
 	public Course updateCourseInformation(String courseId, Course course) {	
         Course oldCourseObject = getCourse(courseId);
-        mapper.delete(oldCourseObject);
+        //mapper.delete(oldCourseObject);
+        System.out.println(oldCourseObject.getRoster()+ " now the rooster");
         course.setCourseId(courseId);
         mapper.save(course);
         return course;
@@ -99,7 +109,6 @@ public CourseService() {
 	public List<Course> getCoursesByDepartment(String department) {	
     	HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":v1",  new AttributeValue().withS(department));
-
 		DynamoDBQueryExpression<Course> queryExpression = new DynamoDBQueryExpression<Course>()
 		    .withIndexName("department-index")
 		    .withConsistentRead(false)
@@ -122,6 +131,22 @@ public CourseService() {
 
 		List<Course> list =  mapper.query(Course.class, queryExpression);
        return list ;
+	}
+	
+	public void addStudentToRooster(String  studId, String courseId) {
+		Course old = getCourse(courseId);
+		if(old != null) {
+			old.getRoster().add(studId);
+			updateCourseInformation(courseId, old);
+		}
+	}
+	
+	public void removeStudentFromRooster(String  studId, String courseId) {
+		Course old = getCourse(courseId);
+		if(old != null) {
+			old.getRoster().remove(studId);
+			updateCourseInformation(courseId, old);
+		}
 	}
 	
 	

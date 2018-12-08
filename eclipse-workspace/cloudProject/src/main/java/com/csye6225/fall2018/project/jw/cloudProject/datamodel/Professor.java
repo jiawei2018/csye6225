@@ -21,6 +21,7 @@ public class Professor {
     private String department;
     private String professorId;
     private String joiningDate;
+     
     
     @DynamoDBAttribute(attributeName = "email")
     private String email;
@@ -107,6 +108,14 @@ public class Professor {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

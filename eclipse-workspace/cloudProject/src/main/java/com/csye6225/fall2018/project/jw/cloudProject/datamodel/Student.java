@@ -23,6 +23,7 @@ public class Student {
 	private Set<String> registeredCourses;// use courseId as value
 
 	private String image;
+	private String email;
 	// private URL imageURL;
 
 	public Student() {
@@ -113,6 +114,14 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Name: " + firstName + " " + lastName + "  StudentId: " + studentId + "   " + id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	// @DynamoDBAttribute(attributeName = "imageURL") // i dont know

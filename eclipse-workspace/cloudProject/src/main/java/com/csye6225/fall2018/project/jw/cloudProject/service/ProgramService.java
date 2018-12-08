@@ -61,7 +61,10 @@ public class ProgramService {
 		    .withExpressionAttributeValues(eav);
 
 		List<Program> list =  mapper.query(Program.class, queryExpression);
-		return  list.isEmpty() ? null : list.get(0);
+		if(list == null || list.size() < 1) {
+			return null;
+		}
+		return   list.get(0);
 	}
 	
 	// Deleting a Program

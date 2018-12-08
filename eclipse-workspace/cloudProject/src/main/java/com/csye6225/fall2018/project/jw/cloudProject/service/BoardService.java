@@ -3,6 +3,7 @@ package com.csye6225.fall2018.project.jw.cloudProject.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
@@ -55,7 +56,10 @@ public class BoardService {
 			    .withExpressionAttributeValues(eav);
 
 			List<Board> list =  mapper.query(Board.class, queryExpression);
-			return  list.isEmpty() ? null : list.get(0);
+			if(list == null || list.size() < 1) {
+				return null;
+			}
+			return   list.get(0);
 	    }
 	    
 	    public Board deleteBoard(String BoardId) {
@@ -65,28 +69,35 @@ public class BoardService {
 	       return deletedProfDetails;
 	    }
 	    
-	    public Board updateBoardInformation(String BoardId, Board anno) {    
+	    public Board updateBoardInformation(String BoardId, Board board) {    
 	        Board oldProfObject = getBoard(BoardId);
-	        mapper.delete(oldProfObject);
+	   
 	        BoardId = oldProfObject.getBoardId();
-	        anno.setBoardId(BoardId);
-	        mapper.save(anno);
-	        return anno;
+	        board.setBoardId(BoardId);
+	        mapper.save(board);
+	        return board;
+	    }
+	    public Board modifyBoardCourseId(String BoardId, String courseId) {
+	    	Board board = getBoard(BoardId);
+	    	board.setCourseId(courseId);
+	    	mapper.save(board);
+	    	return board;
 	    }
 	    
-//	    public List<Board> getBoardsByDepartment(String boardId) {    
-//	        //Getting the list
-//	    	HashMap<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-//			eav.put(":v1",  new AttributeValue().withS(boardId));
-//
-//			DynamoDBQueryExpression<Board> queryExpression = new DynamoDBQueryExpression<Board>()
-//			    .withIndexName("boardId-index")
-//			    .withConsistentRead(false)
-//			    .withKeyConditionExpression("boardId = :v1")
-//			    .withExpressionAttributeValues(eav);
-//
-//			List<Board> list =  mapper.query(Board.class, queryExpression);
-//	       return list ;
+//	    public Board addCourseToBoard(String boardId, String courseId) {
+//	    	Board oldBoard = getBoard(boardId);
+//	    	oldBoard.getCourseId().add(courseId);
+//	    	updateBoardInformation(boardId, oldBoard);
+//	    	return oldBoard;
 //	    }
+//	    
+//	    public Board removeCourseFromBoard(String boardId, String courseId) {
+//	    	Board oldBoard = getBoard(boardId);
+//	    	oldBoard.getCourseId().remove(courseId);
+//	    	updateBoardInformation(boardId, oldBoard);
+//	    	return oldBoard;
+//	    }
+	    
+ 
 
 }

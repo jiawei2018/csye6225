@@ -1,5 +1,6 @@
 package com.csye6225.fall2018.project.jw.cloudProject.datamodel;
 
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 //import com.amazonaws.auth.SdkClock.Instance;
 
@@ -15,13 +16,13 @@ public class DynamoDbConnector {
 	static AmazonDynamoDB dynamoDB; 
 	public static  void init() {
 		if(dynamoDB == null) {
-				// cloud use
+		// cloud use
 		//InstanceProfileCredentialsProvider 	credentialsProvider = new InstanceProfileCredentialsProvider(false);
 		
 			
-			//local use
-		ProfileCredentialsProvider	credentialsProvider = new ProfileCredentialsProvider();
-		
+		//local use
+		//ProfileCredentialsProvider	credentialsProvider = new ProfileCredentialsProvider();
+		DefaultAWSCredentialsProviderChain credentialsProvider = DefaultAWSCredentialsProviderChain.getInstance();
 		credentialsProvider.getCredentials();
 		
 		dynamoDB =  AmazonDynamoDBClientBuilder
@@ -29,7 +30,7 @@ public class DynamoDbConnector {
 				.withCredentials(credentialsProvider)
 				.withRegion("us-east-2")
 				.build();
-		System.out.println("I created the client");
+		System.out.println("I created the client -- dynamodb connector");
 		} 
 	}
 	

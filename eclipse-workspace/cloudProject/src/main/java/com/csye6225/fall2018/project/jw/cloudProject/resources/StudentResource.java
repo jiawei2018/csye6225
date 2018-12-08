@@ -14,9 +14,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
-import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Program;
-import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Student;
+//import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Professor;
+//import com.csye6225.fall2018.project.jw.cloudProject.datamodel.Program;
+import com.csye6225.fall2018.project.jw.cloudProject.datamodel.*;
 import com.csye6225.fall2018.project.jw.cloudProject.service.StudentService;
 
 @Path("students")
@@ -28,8 +28,7 @@ StudentService studService = new StudentService();
  	@Path("/allstudents")
  	@Produces(MediaType.APPLICATION_JSON)
 	public List<Student> getAllStudents(){
- 			return studService.getAllStudents();
-
+ 			return studService.getAllStudents();//.getAllStudents();
 	}
  
  
@@ -37,7 +36,14 @@ StudentService studService = new StudentService();
 	@Path("/{StudentId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Student getStudent(@PathParam("StudentId") String studId) {
-		return studService.getStudent(studId);
+		return studService.getStudent(studId);//.getStudent(studId);
+	}
+	
+	@GET
+	@Path("/{StudentId}/courses")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Course> getStudentCouses(@PathParam("StudentId") String studId) {
+		return studService.getStudentAllCourse(studId);
 	}
 	
     @GET
@@ -63,6 +69,9 @@ StudentService studService = new StudentService();
 			return studService.addStudent(student);
 	}
 	
+
+	
+	
 	@PUT
 	@Path("/{StudentId}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +80,22 @@ StudentService studService = new StudentService();
 			Student stud) {
 		return studService.updateStudentInformation(studId, stud);
 	}
- 
+	
+	@PUT
+	@Path("/{StudentId}/{CourseId}/register")  //new field
+	//students?StudentId=bo940&CourseId=utf-8
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_JSON)
+	public Student addStudentCourse(@PathParam("StudentId") String studId, @PathParam("CourseId") String courseId) {
+		return studService.addStudentCourse(studId, courseId);
+	}
+	
+	@DELETE
+	@Path("/{StudentId}/{CourseId}/drop")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Student delStudentCourse(@PathParam("StudentId") String studId, @PathParam("CourseId") String courseId) {
+		return studService.removeStudentCourse(studId, courseId);
+	}
 
 }

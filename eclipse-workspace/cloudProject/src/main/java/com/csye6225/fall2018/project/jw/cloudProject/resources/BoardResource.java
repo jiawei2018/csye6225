@@ -55,12 +55,23 @@ BoardService boardService = new BoardService();
 	}
 	
 	@PUT
-	@Path("/{boardId}")
+	@Path("/{boardId}/{courseId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Board updateCourse(@PathParam("boardId") String boardId, 
-			Board board) {
-		return boardService.updateBoardInformation(boardId, board);
+	public Board addCourse(@PathParam("boardId") String boardId, 
+			@PathParam("courseId")String courseId) {
+		return boardService.modifyBoardCourseId(boardId, courseId);//(boardId, courseId);
 	}
+	
+//	@DELETE
+//	@Path("/{boardId}/{courseId}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Board removeCourse(@PathParam("boardId") String boardId, 
+//			@PathParam("courseId")String courseId) {
+//		return boardService.removeCourseFromBoard(boardId, courseId);
+//	}
+//	
+	
 
 }

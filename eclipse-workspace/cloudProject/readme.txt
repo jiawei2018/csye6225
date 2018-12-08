@@ -1,7 +1,7 @@
 https://github.com/jiawei2018/csye6225
 Cloud-env.zknyamy397.us-east-2.elasticbeanstalk.com
 
-<Course>
+<Course>                  //not every course have ARN, si if you need to test you will have to creat a new fake course by using follow schma
 1. GET
     webapi/courses/allcourses
     webapi/courses/{courseid}
@@ -130,10 +130,10 @@ webapi/announcements/allannouncements
 	webapi/announcements/{annoid}
 	
 POST
-webapi/announcements/
+webapi/announcements/                           //after subscribe int student part you can test use this.
     {
 
-        "announcementText": "易为君子谋，趋吉避凶；若言天命有常，吉何可趋，凶何可避？开章第一义，便说：积善之家，必有余庆。汝信得及否？",
+        "announcementText": "<<<<8888888888888>>>>",
         "boardId": "bo002"
 
     }
@@ -164,14 +164,14 @@ DELETE
 POST
 	webapi/boards
 	    {
-        "courseId": "co002",
+        "courseId": ["co23423","co001"]
         "otherInfo": "ffffffffffffffinlkijdhftione5in6h6dd"
     }
 	
 PUT
 webapi/boards/{boid}
 	    {
-        "courseId": "co11111111111",
+        "courseId": ["co11111111111","co002"]
         "otherInfo": "ggggggggggggggg"
     }
 DELETE
@@ -223,7 +223,8 @@ webapi/students/{studid}
 POST
 webapi/students
     {
-        "firstName": "alaaceba",
+        "email": "youremail@123.com"
+		"firstName": "alaaceba",
         "image": "img3498593254",
         "joiningDate": "2018-11-11",
         "lastName": "fayed",
@@ -237,6 +238,7 @@ PUT
 webapi/students/{studid}
 
     {
+		"email": "youremail@123.com"
         "firstName": "ffffff",
         "image": "imgfffff",
         "joiningDate": "2018-ffff",
@@ -246,7 +248,16 @@ webapi/students/{studid}
             "fddfdff"
         ]
     }	
-
-
+	
+PUT
+*subscribe                     //after this ,you need to check your test email to allow the subscribe.
+/{studid}/{courseid}/register
+	
+DELETE
+*unsubscribe
+/{studid}/{courseid}/drop
+	
+	
+	
 DELETE
 webapi/students/{studid}
