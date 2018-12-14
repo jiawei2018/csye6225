@@ -39,7 +39,7 @@ LectureService lectureService = new LectureService();
 	@GET
 	@Path("/{lectureId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Lecture getCourse(@PathParam("lectureId") String lectureId) {
+	public Lecture getLecture(@PathParam("lectureId") String lectureId) {
 		System.out.println(lectureId);
 		return lectureService.getLecture(lectureId);
 	}
@@ -47,14 +47,14 @@ LectureService lectureService = new LectureService();
 	@DELETE
 	@Path("/{lectureId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Lecture deleteCourse(@PathParam("lectureId") String lectureId) {
+	public Lecture deleteLecture(@PathParam("lectureId") String lectureId) {
 		return lectureService.deleteLecture(lectureId);
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Lecture addCourse(Lecture lecture) {
+	public Lecture addLecture(Lecture lecture) {
 			return lectureService.addLecture(lecture);
 	}
 	
@@ -62,7 +62,7 @@ LectureService lectureService = new LectureService();
 	@Path("/{lectureId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Lecture updateCourse(@PathParam("lectureId") String lectureId, 
+	public Lecture updateLecture(@PathParam("lectureId") String lectureId, 
 			Lecture lecture) {
 		return lectureService.updateLectureInformation(lectureId, lecture);
 	}

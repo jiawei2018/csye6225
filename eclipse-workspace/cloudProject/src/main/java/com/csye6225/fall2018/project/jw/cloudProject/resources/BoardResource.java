@@ -36,21 +36,21 @@ BoardService boardService = new BoardService();
 	@GET
 	@Path("/{boardId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Board getCourse(@PathParam("boardId") String boardId) {
+	public Board getBoard(@PathParam("boardId") String boardId) {
 		return boardService.getBoard(boardId);
 	}
 	
 	@DELETE
 	@Path("/{boardId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Board deleteCourse(@PathParam("boardId") String boardId) {
+	public Board deleteBoard(@PathParam("boardId") String boardId) {
 		return boardService.deleteBoard(boardId);
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Board addCourse(Board board) {
+	public Board addBoard(Board board) {
 			return boardService.addBoard(board);
 	}
 	
@@ -58,7 +58,7 @@ BoardService boardService = new BoardService();
 	@Path("/{boardId}/{courseId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Board addCourse(@PathParam("boardId") String boardId, 
+	public Board addBoard(@PathParam("boardId") String boardId, 
 			@PathParam("courseId")String courseId) {
 		return boardService.modifyBoardCourseId(boardId, courseId);//(boardId, courseId);
 	}

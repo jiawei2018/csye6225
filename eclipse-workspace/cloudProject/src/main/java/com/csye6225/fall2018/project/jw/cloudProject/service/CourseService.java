@@ -51,7 +51,9 @@ public CourseService() {
     	//System.out.println(prof);
     	//System.out.println(course2.getId() + "   <<<<<<<<");
 		course2.setBoardId(course.getBoardId());
-		course2.setCourseId(idGenerater.generateId("co", 3));
+		
+		course2.setCourseId(genCpourseId());
+		
 		course2.setDepartment(course.getDepartment());
 		course2.setLectures(course.getLectures());
 		course2.setName(course.getName());
@@ -60,7 +62,7 @@ public CourseService() {
 		course2.setRoster(course.getRoster());
 		
 		//get and set arn
-		course2.setSnsTopic(new lambdas().createARN(course.getName()));
+		//course2.setSnsTopic(new lambdas().createARN(course.getName()));// assignment 4 -delete
 		
 		//System.out.println(course2);
 		mapper.save(course2);//already have the id  in it
@@ -70,7 +72,12 @@ public CourseService() {
 	    return course2;
 	}
 	
- 
+	private String genCpourseId() {
+		int num = getAllCourses().size();
+		String res = String.format("%s%04d", "co" , num);
+		System.out.println("<the course id is:> " + res);
+		return res;
+	}
 	
 	// Getting One Course
 	public Course getCourse(String courseId) {

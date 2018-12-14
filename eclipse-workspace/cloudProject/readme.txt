@@ -1,6 +1,29 @@
 https://github.com/jiawei2018/csye6225
 Cloud-env.zknyamy397.us-east-2.elasticbeanstalk.com
 
+things i build in the AWS cloud services:
+step function: arn:aws:states:us-east-2:705018345186:execution:test002:e4add94d-abdf-4c0f-4680-fa8f9aadf997
+effect: step function will work through the work flow , in this case ,it will trigger the lambda3 function. 
+
+AWS api gate  way :Invoke URL: https://g4r9jp56f5.execute-api.us-east-2.amazonaws.com/alpha/execution
+effect: apigateway will start the step function with JSONObject {"courseId" : "XXXXXXXX"} as input parameter.
+
+lambda1(trigger in announcement table): this function will only work when a course(with snsarn) linked to boardID properly.
+effect: when add a new announcement,--> boardid---> courseId--->(sns_ARN)--->sen email,email body from announcementTEXT 
+
+lambda2(trigger in course table ):       
+effect: when add a new course, if it is a "new course"(snstopic, boardid, roster are empty),and its "department" si not "Seminars"
+ call api gateway url to trigger step function.
+ 
+
+lambda3(triggered by step function):
+when trigger ,it will update the new course's snstopic( use JSONObject as input, get 'courseID' from it), 
+use Http  POST request to call from :http://cloud-env.zknyamy397.us-east-2.elasticbeanstalk.com/webapi/registers 
+and :http://cloud-env.zknyamy397.us-east-2.elasticbeanstalk.com/webapi/boards 
+to write data to dynamodb  .
+
+
+
 <Course>                  //not every course have ARN, si if you need to test you will have to creat a new fake course by using follow schma
 1. GET
     webapi/courses/allcourses

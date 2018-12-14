@@ -69,7 +69,8 @@ public class Course {
 		this.courseId = courseId;
 	}
 
-    @DynamoDBIndexHashKey(attributeName = "boardId", globalSecondaryIndexName = "boardId-index")
+   // @DynamoDBIndexHashKey(attributeName = "boardId", globalSecondaryIndexName = "boardId-index")
+	@DynamoDBAttribute(attributeName = "boardId")
 	public String getBoardId() {
 		return boardId;
 	}
@@ -135,6 +136,29 @@ public class Course {
 		this.snsTopic = snsTopic;
 	}
 	
+	
+	@Override
+	public String toString() {
+		/**
+		 * 	private String id;
+	private String courseId;
+	private String boardId;
+	private String name;
+	private String professorId;
+	private String taId;
+	private String department;
+	
+	private Set<String> roster;
+	private Set<String> lectures;
+	private String  snsTopic;
+		 */
+		String res = "id:" +id+ "   courseId:" + courseId+ "  boardId:"+ boardId + "   name" +name
+				+ "   profid" + professorId+ "   taid" +taId+ "   department" + department+ "   arn"+snsTopic 
+				+ "   roster:" + roster.toString() + "  lectures:" + lectures.toString(); 
+		
+		return res ;
+		
+	}
 	//
  
 	
